@@ -1,7 +1,3 @@
-Certainly! You can integrate the `requirements.txt` content directly into the README file under the "Installation" section. Here's how your updated README file would look:
-
----
-
 # Alemeno Bot 🤖
 
 ## Overview
@@ -23,6 +19,9 @@ To run the Alemeno Bot locally, follow these steps:
    pip install langchain_community
    pip install llama_index
    pip install deeplake
+   pip install llama-index-embeddings-langchain
+   pip install gpt4all
+   pip install llama-index-vector-stores-deeplake
    ```
 
 3. Ensure required data and models are accessible:
@@ -46,11 +45,8 @@ To run the Alemeno Bot locally, follow these steps:
 - **VectorStore**: Manages vector storage and retrieval from the dataset.
 
 ## Credits
-- Developed by [Your Name]
+- Developed by Sarthak Aryan
 - Powered by [Langchain](https://langchain.com) and [HuggingFace](https://huggingface.co)
-
-## License
-This project is licensed under the [MIT License](LICENSE).
 
 ---
 
