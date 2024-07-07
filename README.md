@@ -26,6 +26,7 @@ To run the Alemeno Bot locally, follow these steps:
    pip install gpt4all
    pip install llama-index-vector-stores-deeplake
    pip install sentence-transformers
+   pip install llama-index-llms-langchain
    ```
 
 3. Ensure required data and models are accessible:
