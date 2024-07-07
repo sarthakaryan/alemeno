@@ -1,37 +1,33 @@
 import streamlit as st
 from streamlit_chat import message
-from langchain.chains.question_answering import load_qa_chain
-from langchain.chains.question_answering import load_qa_chain
+
 from langchain.embeddings import HuggingFaceEmbeddings
 from llama_index.embeddings.langchain import LangchainEmbedding
-from llama_index.core import Settings
-from llama_index.core import SimpleDirectoryReader
 from langchain_community.llms import GPT4All
 from langchain.schema import Document
-from deeplake.core.vectorstore import VectorStore
+from llama_index.core import VectorStoreIndex, StorageContext
+from llama_index.vector_stores.deeplake import DeepLakeVectorStore
 
 @st.cache_resource
-def initialize_chain():
-    return load_qa_chain(GPT4All(model="./qwen2-0_5b-instruct-q8_0",), chain_type="stuff")
+def initialize_llm():
+    return GPT4All(model="./qwen2-0_5b-instruct-q8_0",)
 
 @st.cache_resource
 def initialize_embed_model():
     return LangchainEmbedding(HuggingFaceEmbeddings(model_name="./sentence-transformers"))
 
 @st.cache_resource
-def initialize_vector_store():
-    return VectorStore(path="dataset", read_only=True)
+def initialize_query_engine():
+    vector_store = DeepLakeVectorStore(dataset_path="suni-dataset",read_only=True,)
+    index = VectorStoreIndex.from_vector_store(vector_store=vector_store,embed_model=embed_model)
+    return index.as_query_engine(llm=llm)
 
-chain = initialize_chain()
+llm = initialize_llm()
 embed_model = initialize_embed_model()
-vector_store = initialize_vector_store()
+query_engine = initialize_query_engine()
 
 def get_response(user_input):
-    docs = vector_store.search(user_input,embedding_function=embed_model.get_text_embedding)
-    docs = [Document(page_content=text) for text in docs]
-    return chain.run(input_documents=docs, question=user_input)
-
-
+    return query_engine.query(user_input).response
 
 
 
