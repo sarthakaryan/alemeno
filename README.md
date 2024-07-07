@@ -3,6 +3,9 @@
 ## Overview
 Alemeno Bot is a Streamlit-based chatbot application that integrates question answering and conversational capabilities using Langchain and HuggingFace embeddings.
 
+![Screenshot 2024-07-06 022023](https://github.com/sarthakaryan/alemeno/assets/32753858/5b31698e-481d-41ae-9ebc-d10373646938)
+
+
 ## Installation
 To run the Alemeno Bot locally, follow these steps:
 
